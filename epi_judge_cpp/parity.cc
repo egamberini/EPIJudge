@@ -14,7 +14,7 @@ short Parity(unsigned long long x) {
   return parity;
 }
 
-short ShortParity(short x) {
+short ShortParity(unsigned long long x) {
   short parity = 0;
   while (x) {
     parity ^= x & 1;
@@ -26,9 +26,9 @@ short ShortParity(short x) {
 int main(int argc, char* argv[]) {
   std::vector<std::string> args{argv + 1, argv + argc};
   std::vector<std::string> param_names{"x"};
-  for (uint8_t c=0; c<UINT8_MAX; c++) {
-    lookup_table[c] = ShortParity(c);
-  }
-  return GenericTestMain(args, "parity.cc", "parity.tsv", &Parity,
+  // for (uint8_t c=0; c<UINT8_MAX; c++) {
+  //   lookup_table[c] = ShortParity(c);
+  // }
+  return GenericTestMain(args, "parity.cc", "parity.tsv", &ShortParity,
                          DefaultComparator{}, param_names);
 }
