@@ -12,10 +12,17 @@ uint8_t SwapBits(uint8_t x, int i, int j) {
 }
 
 unsigned long long ReverseBits_8(uint8_t x) {
-  for (int i=0; i<4; i++) {
-    x = SwapBits(x, i, 7-i);
+  auto search = lookup_table.find(x);
+  if (search != lookup_table.end()) {
+    return search->second;
+  } else {
+    uint8_t swapped = x;
+    for (int i=0; i<4; i++) {
+      swapped = SwapBits(swapped, i, 7-i);
+    }
+    lookup_table[x] = swapped;
+    return swapped;
   }
-  return x;
 }
 
 unsigned long long ReverseBits(unsigned long long x) {
